@@ -95,3 +95,18 @@ export const updateGPTModel = async function () {
 
   return availableModels;
 };
+
+export const authGPT = async function (url: string) {
+  const secret = getServiceSecret("gpt");
+  const xhr = await Zotero.HTTP.request(
+    "GET",
+    url.replace("/chat/completions", "/models"),
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${secret}`,
+      },
+      responseType: "json",
+    }
+  );
+};
